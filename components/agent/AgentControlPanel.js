@@ -250,7 +250,7 @@ export default function AgentControlPanel() {
                 {state.actionHistory.map((log) => (
                   <div key={log.id} className={`log-item ${log.isBlocked ? 'log-item--blocked' : ''}`}>
                     <div className="log-header">
-                      <span className="log-cmd">"{log.command}"</span>
+                      <span className="log-cmd">&quot;{log.command}&quot;</span>
                       <span className="log-time">{log.latency}ms</span>
                     </div>
                     {log.isBlocked && (
