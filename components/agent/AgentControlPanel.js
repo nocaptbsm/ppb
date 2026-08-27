@@ -102,6 +102,11 @@ export default function AgentControlPanel() {
         isBlocked: false,
       });
 
+      // 4. Action Execution
+      actions.setProcessingStage('Executing Action on Page...');
+      await new Promise(resolve => setTimeout(resolve, 600)); // visual delay
+      await adapter.executeAction(data.action, rootElement);
+
       // Update real metrics
       const payloadStats = MetricsCalculator.calculatePayloadReduction(dom, sanitizedDOM, screenshotData?.base64, null);
       const privacyScores = MetricsCalculator.calculatePrivacyScores(classifiedEntities);

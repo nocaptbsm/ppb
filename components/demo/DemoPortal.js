@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useAgent } from '@/context/AgentContext';
 import { SCENARIO_DATA } from './scenarioData';
 import { SCENARIOS } from '@/lib/utils/constants';
@@ -8,21 +9,100 @@ export default function DemoPortal() {
   const { state } = useAgent();
   const scenario = SCENARIO_DATA[state.activeScenario];
 
+  // Interactive Demo States
+  const [cartCount, setCartCount] = useState(0);
+  const [profileUpdated, setProfileUpdated] = useState(false);
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [fundsTransferred, setFundsTransferred] = useState(false);
+  const [securityVerified, setSecurityVerified] = useState(false);
+  const [toast, setToast] = useState('');
+  const [toastTimer, setToastTimer] = useState(null);
+
+  const showToast = (message) => {
+    setToast(message);
+    if (toastTimer) clearTimeout(toastTimer);
+    const timer = setTimeout(() => {
+      setToast('');
+    }, 4000);
+    setToastTimer(timer);
+  };
+
+  const handleAction = (actionId) => {
+    switch (actionId) {
+      case 'add-to-cart':
+        setCartCount(prev => prev + 1);
+        showToast('🛒 Item added to cart! Cart count updated.');
+        break;
+      case 'buy-now':
+        showToast('🛍️ Opening secure checkout gateway...');
+        break;
+      case 'search-btn':
+        const inputVal = document.getElementById('search-input')?.value || '';
+        showToast(`🔍 Searching store catalog for: "${inputVal || 'wireless headphones'}"`);
+        break;
+      case 'update-profile':
+        setProfileUpdated(true);
+        showToast('👤 Citizen Profile updated locally in portal database.');
+        break;
+      case 'download-docs':
+        showToast('📥 Verified documents packaged and downloaded securely.');
+        break;
+      case 'submit-application':
+        setApplicationSubmitted(true);
+        showToast('🏛️ Aadhaar application submitted successfully to government servers.');
+        break;
+      case 'fund-transfer':
+        showToast('💸 Initializing NEFT/IMPS secure money transfer protocol...');
+        break;
+      case 'view-statement':
+        showToast('📊 Generating encrypted account statement...');
+        break;
+      case 'submit-transfer':
+        setFundsTransferred(true);
+        showToast('✅ Transfer successful! ₹15,000 sent. Transaction ID: TXN892749');
+        break;
+      case 'compare':
+        showToast('⚖️ Fetching competitor specs for side-by-side comparison.');
+        break;
+      case 'verify-identity':
+        setSecurityVerified(true);
+        showToast('🛡️ Credentials submitted successfully for identity verification.');
+        break;
+      default:
+        showToast(`Triggered portal action: ${actionId}`);
+    }
+  };
+
   if (!scenario) return null;
 
   return (
     <div className="demo-portal" id="demo-portal-root">
       {/* Portal Header */}
       <div className="demo-header" style={{ background: scenario.headerColor }}>
-        <span style={{ fontSize: '28px' }}>{scenario.emblem}</span>
-        <div>
-          <div style={{ fontSize: 'var(--text-lg)', fontWeight: 700 }}>{scenario.title}</div>
-          <div style={{ fontSize: 'var(--text-xs)', opacity: 0.8 }}>{scenario.subtitle}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+          <span style={{ fontSize: '28px' }}>{scenario.emblem}</span>
+          <div>
+            <div style={{ fontSize: 'var(--text-lg)', fontWeight: 700 }}>{scenario.title}</div>
+            <div style={{ fontSize: 'var(--text-xs)', opacity: 0.8 }}>{scenario.subtitle}</div>
+          </div>
         </div>
+        {state.activeScenario === SCENARIOS.NORMAL && (
+          <div className="cart-badge">
+            🛒 Cart ({cartCount})
+          </div>
+        )}
       </div>
 
       {/* Portal Body */}
       <div className="demo-body">
+        {/* Floating Toast Notification */}
+        {toast && (
+          <div className="demo-toast animate-slide-down">
+            <span className="toast-icon">⚡</span>
+            <div className="toast-text">{toast}</div>
+          </div>
+        )}
+
         {/* Attack Warning Banner */}
         {state.activeScenario === SCENARIOS.ATTACK && (
           <div className="attack-banner" data-pii-type="PROMPT_INJECTION">
@@ -38,8 +118,22 @@ export default function DemoPortal() {
 
         {scenario.sections.map((section) => (
           <div key={section.id} className="demo-section" id={`section-${section.id}`}>
-            <div className="demo-section-title">{section.title}</div>
-            {renderSection(section, state.activeScenario)}
+            <div className="demo-section-title">
+              {section.title}
+              {section.id === 'citizen-profile' && profileUpdated && (
+                <span className="status-badge status-badge--success">Updated</span>
+              )}
+              {section.id === 'citizen-profile' && applicationSubmitted && (
+                <span className="status-badge status-badge--success">Submitted</span>
+              )}
+              {section.id === 'account-summary' && fundsTransferred && (
+                <span className="status-badge status-badge--success">Transferred</span>
+              )}
+              {section.id === 'login-security' && securityVerified && (
+                <span className="status-badge status-badge--success">Verified</span>
+              )}
+            </div>
+            {renderSection(section, state.activeScenario, handleAction)}
           </div>
         ))}
 
@@ -50,6 +144,7 @@ export default function DemoPortal() {
               <button
                 key={action.id}
                 id={action.id}
+                onClick={() => handleAction(action.id)}
                 className={`demo-btn ${action.type === 'secondary' ? 'demo-btn--secondary' : ''}`}
                 style={action.type === 'secondary' ? { background: '#e2e8f0', color: '#374151' } : {}}
               >
@@ -61,6 +156,43 @@ export default function DemoPortal() {
       </div>
 
       <style jsx>{`
+        .demo-toast {
+          display: flex;
+          align-items: center;
+          gap: var(--space-3);
+          padding: var(--space-3) var(--space-4);
+          background: #ecfeff;
+          border: 1px solid #06b6d4;
+          border-radius: var(--radius-md);
+          margin-bottom: var(--space-5);
+          font-size: var(--text-sm);
+          color: #0891b2;
+          font-weight: 600;
+          box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+        }
+        .status-badge {
+          font-size: 10px;
+          padding: 2px 8px;
+          border-radius: var(--radius-full);
+          margin-left: var(--space-3);
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        .status-badge--success {
+          background: #d1fae5;
+          color: #065f46;
+          border: 1px solid #34d399;
+        }
+        .cart-badge {
+          background: #ffffff;
+          color: #e65100;
+          padding: var(--space-2) var(--space-4);
+          border-radius: var(--radius-full);
+          font-size: var(--text-sm);
+          font-weight: 700;
+          border: 2px solid #e65100;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
         .attack-banner {
           display: flex;
           align-items: flex-start;
@@ -209,7 +341,7 @@ export default function DemoPortal() {
   );
 }
 
-function renderSection(section, scenario) {
+function renderSection(section, scenario, handleAction) {
   switch (section.type) {
     case 'table':
       return renderTable(section);
@@ -218,7 +350,7 @@ function renderSection(section, scenario) {
     case 'reviews':
       return renderReviews(section);
     case 'search':
-      return renderSearch(section);
+      return renderSearch(section, handleAction);
     case 'injection':
       return renderInjection(section);
     case 'fake-form':
@@ -326,7 +458,7 @@ function renderReviews(section) {
   );
 }
 
-function renderSearch(section) {
+function renderSearch(section, handleAction) {
   return (
     <div className="search-container">
       <input
@@ -335,7 +467,14 @@ function renderSearch(section) {
         placeholder={section.placeholder}
         id="search-input"
       />
-      <button className="demo-btn" id="search-btn" style={{ flexShrink: 0 }}>Search</button>
+      <button 
+        className="demo-btn" 
+        id="search-btn" 
+        style={{ flexShrink: 0 }}
+        onClick={() => handleAction('search-btn')}
+      >
+        Search
+      </button>
     </div>
   );
 }
@@ -346,7 +485,6 @@ function renderInjection(section) {
       <p style={{ fontSize: 'var(--text-sm)', color: '#374151', lineHeight: 1.6 }}>
         {section.visibleText}
       </p>
-      {/* Hidden prompt injection — invisible to human eye but visible to VLM/OCR */}
       <div
         className="injection-hidden"
         data-pii-type="PROMPT_INJECTION"

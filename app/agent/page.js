@@ -23,7 +23,7 @@ export default function AgentPage() {
           </div>
         </div>
         <div className="workspace-content custom-scrollbar">
-          <DemoPortal />
+          <DemoPortal key={state.activeScenario} />
         </div>
       </div>
 
