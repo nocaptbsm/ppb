@@ -9,69 +9,69 @@
 /* ---------- CSS Custom Properties ---------- */
 :root {
   /* Core palette */
-  --color-bg-primary: #0a0e1a;
-  --color-bg-secondary: #111827;
-  --color-bg-tertiary: #1a2235;
-  --color-bg-card: rgba(17, 24, 39, 0.7);
-  --color-bg-card-hover: rgba(26, 34, 53, 0.85);
-  --color-bg-glass: rgba(17, 24, 39, 0.45);
-  --color-bg-elevated: #1e293b;
-  --color-bg-input: rgba(15, 23, 42, 0.8);
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f1f5f9;
+  --color-bg-card: rgba(255, 255, 255, 0.75);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.95);
+  --color-bg-glass: rgba(255, 255, 255, 0.45);
+  --color-bg-elevated: #ffffff;
+  --color-bg-input: #ffffff;
 
   /* Accent colors */
-  --color-accent-primary: #06b6d4;    /* Cyan */
-  --color-accent-secondary: #8b5cf6;  /* Purple */
-  --color-accent-tertiary: #3b82f6;   /* Blue */
-  --color-accent-warm: #f59e0b;       /* Amber */
-  --color-accent-pink: #ec4899;
+  --color-accent-primary: #0891b2;    /* Refined Deep Cyan */
+  --color-accent-secondary: #7c3aed;  /* Refined Purple */
+  --color-accent-tertiary: #2563eb;   /* Refined Blue */
+  --color-accent-warm: #d97706;       /* Refined Amber */
+  --color-accent-pink: #db2777;
 
   /* Semantic colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-  --color-info: #3b82f6;
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-info: #2563eb;
 
   /* Privacy decision colors */
-  --color-allow: #10b981;
-  --color-transform: #f59e0b;
-  --color-block: #ef4444;
+  --color-allow: #059669;
+  --color-transform: #d97706;
+  --color-block: #dc2626;
 
   /* Risk level colors */
-  --color-risk-low: #10b981;
-  --color-risk-medium: #3b82f6;
-  --color-risk-high: #f59e0b;
-  --color-risk-blocked: #ef4444;
+  --color-risk-low: #059669;
+  --color-risk-medium: #2563eb;
+  --color-risk-high: #d97706;
+  --color-risk-blocked: #dc2626;
 
   /* Text colors */
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
   --color-text-muted: #64748b;
-  --color-text-inverse: #0a0e1a;
-  --color-text-accent: #06b6d4;
+  --color-text-inverse: #ffffff;
+  --color-text-accent: #0891b2;
 
   /* Border colors */
-  --color-border: rgba(148, 163, 184, 0.12);
-  --color-border-hover: rgba(148, 163, 184, 0.25);
-  --color-border-accent: rgba(6, 182, 212, 0.4);
+  --color-border: rgba(148, 163, 184, 0.18);
+  --color-border-hover: rgba(148, 163, 184, 0.3);
+  --color-border-accent: rgba(8, 145, 178, 0.4);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-  --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-  --gradient-dark: linear-gradient(180deg, #0a0e1a 0%, #111827 100%);
-  --gradient-card: linear-gradient(145deg, rgba(17,24,39,0.8) 0%, rgba(26,34,53,0.6) 100%);
-  --gradient-glow-cyan: radial-gradient(ellipse at center, rgba(6,182,212,0.15) 0%, transparent 70%);
-  --gradient-glow-purple: radial-gradient(ellipse at center, rgba(139,92,246,0.15) 0%, transparent 70%);
+  --gradient-primary: linear-gradient(135deg, #0891b2 0%, #7c3aed 100%);
+  --gradient-secondary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  --gradient-warm: linear-gradient(135deg, #d97706 0%, #dc2626 100%);
+  --gradient-dark: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(241,245,249,0.7) 100%);
+  --gradient-glow-cyan: radial-gradient(ellipse at center, rgba(8,145,178,0.08) 0%, transparent 70%);
+  --gradient-glow-purple: radial-gradient(ellipse at center, rgba(124,58,237,0.08) 0%, transparent 70%);
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
-  --shadow-glow-cyan: 0 0 20px rgba(6, 182, 212, 0.3);
-  --shadow-glow-purple: 0 0 20px rgba(139, 92, 246, 0.3);
-  --shadow-glow-green: 0 0 15px rgba(16, 185, 129, 0.3);
-  --shadow-glow-red: 0 0 15px rgba(239, 68, 68, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 8px 30px rgba(15, 23, 42, 0.08);
+  --shadow-xl: 0 16px 40px rgba(15, 23, 42, 0.12);
+  --shadow-glow-cyan: 0 0 15px rgba(8, 145, 178, 0.15);
+  --shadow-glow-purple: 0 0 15px rgba(124, 58, 237, 0.15);
+  --shadow-glow-green: 0 0 12px rgba(5, 150, 105, 0.15);
+  --shadow-glow-red: 0 0 12px rgba(220, 38, 38, 0.15);
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -227,15 +227,15 @@ input, textarea, select {
   top: 0;
   left: 0;
   height: 100vh;
-  background: rgba(10, 14, 26, 0.45);
+  background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(148, 163, 184, 0.12);
   z-index: var(--z-sticky);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.03);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
 .app-main {
@@ -248,17 +248,17 @@ input, textarea, select {
 
 .app-header {
   height: var(--header-height);
-  background: rgba(10, 14, 26, 0.45);
+  background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
   display: flex;
   align-items: center;
   padding: 0 var(--space-8);
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .app-content {
