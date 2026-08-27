@@ -214,7 +214,19 @@ function executeAction(action) {
 }
 
 function findElement(selector) {
-  const el = document.querySelector(selector);
+  let el = document.querySelector(selector);
+  if (!el && selector === '#search-input') {
+    el = document.querySelector('input[name="q"]') || 
+         document.querySelector('input[type="search"]') || 
+         document.querySelector('input[placeholder*="search" i]') ||
+         document.querySelector('input[type="text"]');
+  }
+  if (!el && selector === '#search-btn') {
+    el = document.querySelector('button[type="submit"]') ||
+         document.querySelector('input[type="submit"]') ||
+         document.querySelector('.search-button') ||
+         document.querySelector('button');
+  }
   if (!el) throw new Error(`Element not found: ${selector}`);
   return el;
 }
