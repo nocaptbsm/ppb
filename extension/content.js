@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'get_dom') {
     try {
       const start = performance.now();
-      const tree = analyzeNode(document.body, 0);
+      const tree = analyzeNode(document.body || document.documentElement, 0);
       const extractionTimeMs = performance.now() - start;
       const elementCount = countElementsInTree(tree);
 
@@ -63,20 +63,25 @@ function analyzeNode(node, depth = 0) {
     }
   } catch (e) {}
 
-  const rect = node.getBoundingClientRect ? node.getBoundingClientRect() : { x: 0, y: 0, width: 0, height: 0 };
+  let rect = { x: 0, y: 0, width: 0, height: 0 };
+  try {
+    if (node.getBoundingClientRect) {
+      rect = node.getBoundingClientRect();
+    }
+  } catch (e) {}
 
   const element = {
     type: 'element',
     tag,
-    id: node.id || undefined,
+    id: typeof node.id === 'string' && node.id ? node.id : undefined,
     className: node.className && typeof node.className === 'string' ? node.className : undefined,
     isInteractive: isInteractiveElement(node, tag),
-    inputType: node.type || undefined,
+    inputType: typeof node.type === 'string' ? node.type : undefined,
     directText: getDirectNodeText(node),
     label: getElementLabel(node),
     ariaRole: node.getAttribute('role') || undefined,
     ariaLabel: node.getAttribute('aria-label') || undefined,
-    placeholder: node.placeholder || undefined,
+    placeholder: typeof node.placeholder === 'string' ? node.placeholder : undefined,
     value: getSafeElementValue(node, tag),
     bbox: {
       x: Math.round(rect.x),
@@ -155,7 +160,13 @@ function getSafeElementValue(node, tag) {
 }
 
 function buildCSSSelector(node) {
-  if (node.id) return `#${node.id}`;
+  if (typeof node.id === 'string' && node.id) {
+    try {
+      return `#${CSS.escape(node.id)}`;
+    } catch (e) {
+      return `#${node.id.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1')}`;
+    }
+  }
   
   const tag = node.tagName.toLowerCase();
   
