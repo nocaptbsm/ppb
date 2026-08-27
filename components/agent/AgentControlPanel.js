@@ -286,8 +286,8 @@ export default function AgentControlPanel() {
         }
         .panel-tabs {
           display: flex;
-          border-bottom: 1px solid var(--color-border);
-          background: #f8fafc;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(15, 23, 42, 0.35);
         }
         .tab-btn {
           flex: 1;
@@ -303,7 +303,7 @@ export default function AgentControlPanel() {
         }
         .tab-btn:hover {
           color: var(--color-text-primary);
-          background: rgba(0,0,0,0.02);
+          background: rgba(255, 255, 255, 0.03);
         }
         .tab-btn.active {
           color: var(--color-accent-primary);

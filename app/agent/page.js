@@ -37,7 +37,7 @@ export default function AgentPage() {
           display: flex;
           height: calc(100vh - 64px); /* Subtract header height */
           width: 100%;
-          background: var(--color-bg-primary);
+          background: transparent;
           overflow: hidden;
         }
 
@@ -45,24 +45,27 @@ export default function AgentPage() {
           flex: 1 1 60%;
           display: flex;
           flex-direction: column;
-          border-right: 1px solid var(--color-border);
-          background: #f8fafc;
+          border-right: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(15, 23, 42, 0.25);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
         }
 
         .workspace-header {
           padding: var(--space-3) var(--space-4);
-          background: #e2e8f0;
-          border-bottom: 1px solid var(--color-border);
+          background: rgba(15, 23, 42, 0.45);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .browser-chrome {
           display: flex;
           align-items: center;
           gap: var(--space-2);
-          background: #ffffff;
+          background: rgba(255, 255, 255, 0.03);
           padding: var(--space-2) var(--space-4);
           border-radius: var(--radius-full);
-          border: 1px solid #cbd5e1;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
         }
 
         .dot {
@@ -77,9 +80,10 @@ export default function AgentPage() {
         .address-bar {
           margin-left: var(--space-4);
           font-size: var(--text-xs);
-          color: #475569;
+          color: var(--color-accent-primary);
           font-family: var(--font-mono);
           flex: 1;
+          opacity: 0.85;
         }
 
         .workspace-content {
@@ -94,9 +98,11 @@ export default function AgentPage() {
           max-width: 600px;
           display: flex;
           flex-direction: column;
-          background: var(--color-bg-primary);
-          border-left: 1px solid var(--color-border);
-          box-shadow: -4px 0 15px rgba(0,0,0,0.02);
+          background: rgba(10, 14, 26, 0.45);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-left: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: -10px 0 30px rgba(0,0,0,0.25);
           z-index: 10;
         }
 
