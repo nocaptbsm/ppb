@@ -27,6 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  let currentTheme = localStorage.getItem('theme') || 'light';
+  document.body.setAttribute('data-theme', currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', currentTheme);
+    document.body.setAttribute('data-theme', currentTheme);
+  });
+
   // Action history state
   const actionHistory = [];
 
@@ -103,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Injection attack blocked
         if (response.status === 403) {
           blockedBanner.style.display = 'block';
-          blockedBanner.textContent = `⚠️ Command Blocked: Prompt Injection detected!`;
+          blockedBanner.textContent = `Command Blocked: Prompt Injection detected!`;
           
           addActionLog(command, { type: 'BLOCKED', target: 'FIREWALL' }, `Prompt Injection blocked: ${data.detail || 'Malicious input found.'}`);
         } else {
@@ -249,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // UI Effect: Success animation
   function showSuccessAlert() {
     statusBanner.style.display = 'flex';
-    statusText.textContent = '✅ Action Executed Successfully!';
+    statusText.textContent = 'Action Executed Successfully!';
     setTimeout(() => {
       statusBanner.style.display = 'none';
     }, 2000);

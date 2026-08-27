@@ -1,6 +1,5 @@
 import './globals.css';
 import { AgentProvider } from '@/context/AgentContext';
-import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 
 export const metadata = {
@@ -13,10 +12,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{__html: `
+          (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+          })();
+        `}} />
+      </head>
       <body>
         <AgentProvider>
           <div className="app-layout">
-            <Sidebar />
             <main className="app-main">
               <Header />
               <div className="app-content">
