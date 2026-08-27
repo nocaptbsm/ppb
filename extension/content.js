@@ -214,6 +214,9 @@ function executeAction(action) {
         return executeScroll(action, timestamp);
       case 'select':
         return executeSelect(action, timestamp);
+      case 'navigate':
+        window.location.href = action.url;
+        return { success: true, detail: `Navigating to: ${action.url}`, timestamp };
       case 'wait':
         return { success: true, detail: `Waited ${action.duration || 1000}ms`, timestamp };
       default:
