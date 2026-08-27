@@ -338,12 +338,21 @@ export default function AgentControlPanel() {
           border: 2px solid var(--color-border);
           border-radius: var(--radius-md);
           font-size: var(--text-base);
-          background: #f8fafc;
+          background: var(--color-bg-primary);
+          color: var(--color-text-primary);
+          transition: all var(--transition-fast);
         }
         .command-input:focus {
           outline: none;
           border-color: var(--color-accent-primary);
-          background: #fff;
+          background: var(--color-bg-secondary);
+        }
+        .command-input:disabled {
+          background: var(--color-bg-tertiary);
+          color: var(--color-text-secondary) !important;
+          -webkit-text-fill-color: var(--color-text-secondary) !important;
+          opacity: 0.8;
+          cursor: not-allowed;
         }
         
         .processing-status {
