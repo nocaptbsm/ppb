@@ -144,7 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function sendTabMessage(tabId, message) {
     return new Promise((resolve) => {
       chrome.tabs.sendMessage(tabId, message, (response) => {
-        resolve(response);
+        if (chrome.runtime.lastError) {
+          resolve({ 
+            success: false, 
+            error: `${chrome.runtime.lastError.message}. Make sure you have refreshed the webpage after loading the extension and that you are not on a restricted page (like chrome://extensions or a blank tab).` 
+          });
+        } else {
+          resolve(response);
+        }
       });
     });
   }
